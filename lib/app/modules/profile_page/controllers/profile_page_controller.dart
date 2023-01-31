@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class HomeController extends GetxController {
+class ProfilePageController extends GetxController {
   var scaffoldKey = GlobalKey<ScaffoldState>();
 
   void openDrawer() {

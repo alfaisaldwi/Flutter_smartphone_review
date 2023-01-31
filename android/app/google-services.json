@@ -14,7 +14,15 @@
       },
       "oauth_client": [
         {
-          "client_id": "756020390968-f7tpi9h48jivr7esqr8dr48kp7e2k389.apps.googleusercontent.com",
+          "client_id": "756020390968-4lhakmp2lt36aojep8im76ragpa078h5.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.smartphonereview.smartphone_review",
+            "certificate_hash": "0f24d774df308925e2339de397386f89d3a49664"
+          }
+        },
+        {
+          "client_id": "756020390968-h1nm6afkkgd1slgqbg95c1aj5hg7k9r5.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
