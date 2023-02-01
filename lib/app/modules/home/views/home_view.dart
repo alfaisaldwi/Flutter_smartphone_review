@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:smartphone_review/app/modules/detail_review/views/detail_review_view.dart';
 import 'package:smartphone_review/app/modules/profile_page/views/profile_page_view.dart';
 import 'package:smartphone_review/app/modules/smartphone_add/views/smartphone_add_view.dart';
 
@@ -70,7 +71,7 @@ class HomeView extends GetView<HomeController> {
                   ),
                   ListTile(
                     title: Text(
-                      'BrandSmartphone',
+                      'Brand Smartphone',
                       style: TextStyle(
                           fontFamily: 'Montserrat',
                           fontWeight: FontWeight.bold,
@@ -150,7 +151,7 @@ class HomeView extends GetView<HomeController> {
                                   fontWeight: FontWeight.bold),
                             ),
                             onPressed: () async {
-                              Get.to(() => HomeView());
+                              Get.to(() => DetailReviewView());
                             },
                           ),
                         ),

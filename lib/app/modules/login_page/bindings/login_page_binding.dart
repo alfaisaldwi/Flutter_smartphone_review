@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:smartphone_review/app/modules/detail_review/controllers/detail_review_controller.dart';
 import 'package:smartphone_review/app/modules/home/controllers/home_controller.dart';
 import 'package:smartphone_review/app/modules/profile_page/controllers/profile_page_controller.dart';
 import 'package:smartphone_review/app/modules/smartphone_add/bindings/smartphone_add_binding.dart';
@@ -17,5 +18,6 @@ class LoginPageBinding extends Bindings {
     );
     Get.lazyPut<ProfilePageController>(() => ProfilePageController());
     Get.lazyPut<SmartphoneAddController>(() => SmartphoneAddController());
+    Get.lazyPut<DetailReviewController>(() => DetailReviewController());
   }
 }

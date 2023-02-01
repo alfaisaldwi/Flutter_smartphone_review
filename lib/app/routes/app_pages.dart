@@ -1,5 +1,7 @@
 import 'package:get/get.dart';
 
+import 'package:smartphone_review/app/modules/detail_review/bindings/detail_review_binding.dart';
+import 'package:smartphone_review/app/modules/detail_review/views/detail_review_view.dart';
 import 'package:smartphone_review/app/modules/home/bindings/home_binding.dart';
 import 'package:smartphone_review/app/modules/home/views/home_view.dart';
 import 'package:smartphone_review/app/modules/login_page/bindings/login_page_binding.dart';
@@ -36,6 +38,11 @@ class AppPages {
       name: _Paths.SMARTPHONE_ADD,
       page: () => SmartphoneAddView(),
       binding: SmartphoneAddBinding(),
+    ),
+    GetPage(
+      name: _Paths.DETAIL_REVIEW,
+      page: () => DetailReviewView(),
+      binding: DetailReviewBinding(),
     ),
   ];
 }
