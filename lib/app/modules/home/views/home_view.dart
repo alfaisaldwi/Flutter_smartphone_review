@@ -27,6 +27,18 @@ class HomeView extends GetView<HomeController> {
           height: 40,
         ),
         centerTitle: true,
+        actions: [
+          Padding(
+            padding: const EdgeInsets.only(right: 12.0),
+            child: GestureDetector(
+              onTap: () => Get.toNamed('profile-page'),
+              child: Icon(
+                Icons.person_outline_outlined,
+                color: Colors.black,
+              ),
+            ),
+          )
+        ],
       ),
       key: controller.scaffoldKey,
       drawer: GestureDetector(

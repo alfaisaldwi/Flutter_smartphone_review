@@ -30,7 +30,6 @@ class HomeController extends GetxController {
       c_deskripsi.text = documentSnapshot['deskripsi'];
       c_spek.text = documentSnapshot['spek'];
       c_excess.text = documentSnapshot['excess'];
-
     }
 
     await showModalBottomSheet(
@@ -124,57 +123,60 @@ class HomeController extends GetxController {
                   const SizedBox(
                     height: 20,
                   ),
-                  ElevatedButton(
-                    child: Text(action == 'create' ? 'Create' : 'Update'),
-                    onPressed: () async {
-                      final String? brand = c_brand.text;
-                      final String? slogan = c_slogan.text;
-                      final String? deskripsi = c_deskripsi.text;
-                      final String? spek = c_spek.text;
-                      final String? excess = c_excess.text;
+                  Container(
+                    width: 340,
+                    child: ElevatedButton(
+                      child: Text(action == 'create' ? 'Create' : 'Update'),
+                      onPressed: () async {
+                        final String? brand = c_brand.text;
+                        final String? slogan = c_slogan.text;
+                        final String? deskripsi = c_deskripsi.text;
+                        final String? spek = c_spek.text;
+                        final String? excess = c_excess.text;
 
-                      if (brand != null &&
-                          slogan != null &&
-                          deskripsi != null &&
-                          spek != null &&
-                          excess != null &&
-                          imageUrl != null) {
-                        if (action == 'create') {
-                          await dbMaps.add({
-                            "brand": brand,
-                            "slogan": slogan,
-                            "deskripsi": deskripsi,
-                            "spek": spek,
-                            "excess": excess,
-                            "imageUrl": imageUrl
-                          });
+                        if (brand != null &&
+                            slogan != null &&
+                            deskripsi != null &&
+                            spek != null &&
+                            excess != null &&
+                            imageUrl != null) {
+                          if (action == 'create') {
+                            await dbMaps.add({
+                              "brand": brand,
+                              "slogan": slogan,
+                              "deskripsi": deskripsi,
+                              "spek": spek,
+                              "excess": excess,
+                              "imageUrl": imageUrl
+                            });
+                          }
+
+                          if (action == 'update') {
+                            // Update the product
+                            await dbMaps.doc(documentSnapshot!.id).update({
+                              "brand": brand,
+                              "slogan": slogan,
+                              "deskripsi": deskripsi,
+                              "spek": spek,
+                              "excess": excess,
+                              "imageUrl": imageUrl
+                            });
+                          }
+
+                          // Clear the text fields
+                          c_brand.text = '';
+                          c_slogan.text = '';
+                          c_deskripsi.text = '';
+                          c_spek.text = '';
+
+                          c_excess.text = '';
+                          imageUrl = '';
+
+                          // Hide the bottom sheet
+                          Navigator.of(Get.context!).pop();
                         }
-
-                        if (action == 'update') {
-                          // Update the product
-                          await dbMaps.doc(documentSnapshot!.id).update({
-                            "brand": brand,
-                            "slogan": slogan,
-                            "deskripsi": deskripsi,
-                            "spek": spek,
-                            "excess": excess,
-                            "imageUrl": imageUrl
-                          });
-                        }
-
-                        // Clear the text fields
-                        c_brand.text = '';
-                        c_slogan.text = '';
-                        c_deskripsi.text = '';
-                        c_spek.text = '';
-
-                        c_excess.text = '';
-                        imageUrl = '';
-
-                        // Hide the bottom sheet
-                        Navigator.of(Get.context!).pop();
-                      }
-                    },
+                      },
+                    ),
                   )
                 ],
               ),

@@ -10,6 +10,8 @@ import 'package:smartphone_review/app/modules/profile_page/bindings/profile_page
 import 'package:smartphone_review/app/modules/profile_page/views/profile_page_view.dart';
 import 'package:smartphone_review/app/modules/smartphone_add/bindings/smartphone_add_binding.dart';
 import 'package:smartphone_review/app/modules/smartphone_add/views/smartphone_add_view.dart';
+import 'package:smartphone_review/app/modules/splash_screen/bindings/splash_screen_binding.dart';
+import 'package:smartphone_review/app/modules/splash_screen/views/splash_screen_view.dart';
 
 part 'app_routes.dart';
 
@@ -43,6 +45,11 @@ class AppPages {
       name: _Paths.DETAIL_REVIEW,
       page: () => DetailReviewView(),
       binding: DetailReviewBinding(),
+    ),
+    GetPage(
+      name: _Paths.SPLASH_SCREEN,
+      page: () => SplashScreenView(),
+      binding: SplashScreenBinding(),
     ),
   ];
 }

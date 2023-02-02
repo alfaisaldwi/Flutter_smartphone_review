@@ -9,6 +9,7 @@ abstract class Routes {
   static const PROFILE_PAGE = _Paths.PROFILE_PAGE;
   static const SMARTPHONE_ADD = _Paths.SMARTPHONE_ADD;
   static const DETAIL_REVIEW = _Paths.DETAIL_REVIEW;
+  static const SPLASH_SCREEN = _Paths.SPLASH_SCREEN;
 }
 
 abstract class _Paths {
@@ -17,4 +18,5 @@ abstract class _Paths {
   static const PROFILE_PAGE = '/profile-page';
   static const SMARTPHONE_ADD = '/smartphone-add';
   static const DETAIL_REVIEW = '/detail-review';
+  static const SPLASH_SCREEN = '/splash-screen';
 }

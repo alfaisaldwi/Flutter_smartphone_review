@@ -20,6 +20,18 @@ class DetailReviewView extends GetView<DetailReviewController> {
             color: Colors.black,
           ),
         ),
+        actions: [
+          Padding(
+            padding: const EdgeInsets.only(right: 12.0),
+            child: GestureDetector(
+              onTap: () => Get.toNamed('profile-page'),
+              child: Icon(
+                Icons.person_outline_outlined,
+                color: Colors.black,
+              ),
+            ),
+          )
+        ],
         backgroundColor: Colors.white,
         automaticallyImplyLeading: false,
         title: Image.asset(

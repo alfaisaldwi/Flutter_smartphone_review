@@ -10,8 +10,7 @@ import 'package:smartphone_review/app/modules/login_page/views/login_page_view.d
 
 class ProfilePageController extends GetxController {
   var scaffoldKey = GlobalKey<ScaffoldState>();
-  FirebaseAuth auth = FirebaseAuth.instance;
-  final _fireStore = FirebaseFirestore.instance.collection('reviewSmartphone');
+
   final CollectionReference dbMaps =
       FirebaseFirestore.instance.collection('reviewSmartphone');
   String imageUrl = '';
@@ -21,6 +20,14 @@ class ProfilePageController extends GetxController {
   TextEditingController c_slogan = TextEditingController();
   TextEditingController c_spek = TextEditingController();
   TextEditingController c_excess = TextEditingController();
+
+  FirebaseAuth auth = FirebaseAuth.instance;
+
+
+
+  Stream<DocumentSnapshot<Map<String, dynamic>>> streamUser() async* {
+    String uid = auth.currentUser!.uid;
+  }
 
   Future<void> createOrUpdate([DocumentSnapshot? documentSnapshot]) async {
     // final GeoPoint loc = documentSnapshot?['location'];
@@ -196,7 +203,7 @@ class ProfilePageController extends GetxController {
 
   void asignOutUser() async {
     await auth.signOut();
-    Get.toNamed('/login-page');
+    Get.offAllNamed('/login-page');
   }
 
   void openDrawer() {

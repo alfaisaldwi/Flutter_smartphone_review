@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 import 'package:smartphone_review/app/modules/home/views/home_view.dart';
+import 'package:smartphone_review/app/modules/login_page/controllers/login_page_controller.dart';
 
 import '../controllers/profile_page_controller.dart';
 
 class ProfilePageView extends GetView<ProfilePageController> {
+  final pUser = Get.put(LoginPageController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -96,22 +98,22 @@ class ProfilePageView extends GetView<ProfilePageController> {
             SizedBox(
               height: 10,
             ),
-            Text('User'),
+            Text('${pUser.user!.displayName}'),
             SizedBox(
               height: 20,
             ),
             Padding(
-              padding: const EdgeInsets.all(14.0),
+              padding: const EdgeInsets.all(20.0),
               child: ListTile(
                 leading: Text('Email'),
-                trailing: Text('Usser'),
+                trailing: Text('${pUser.user!.email}'),
               ),
             ),
             Padding(
-              padding: const EdgeInsets.all(14.0),
+              padding: const EdgeInsets.all(20.0),
               child: ListTile(
                 leading: Text('Name'),
-                trailing: Text('Usser'),
+                trailing: Text('${pUser.user!.displayName}'),
               ),
             ),
             SizedBox(

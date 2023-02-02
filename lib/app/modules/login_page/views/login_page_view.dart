@@ -130,7 +130,7 @@ class LoginPageView extends GetView<LoginPageController> {
                       fontFamily: 'Montserrat', fontWeight: FontWeight.bold),
                 ),
                 onPressed: () async {
-                  Get.to(() => HomeView());
+                  controller.loginGoogle(context: Get.context!);
                 },
               ),
             )
