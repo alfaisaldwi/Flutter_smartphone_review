@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
@@ -33,6 +34,7 @@ class LoginPageView extends GetView<LoginPageController> {
             Padding(
               padding: EdgeInsets.all(18),
               child: TextFormField(
+                controller: controller.c_email,
                 decoration: InputDecoration(
                   focusColor: Colors.white,
                   //add prefix icon
@@ -52,6 +54,8 @@ class LoginPageView extends GetView<LoginPageController> {
             Padding(
               padding: EdgeInsets.all(18),
               child: TextFormField(
+                obscureText: true,
+                controller: controller.c_pw,
                 decoration: InputDecoration(
                   focusColor: Colors.white,
                   //add prefix icon
@@ -71,12 +75,42 @@ class LoginPageView extends GetView<LoginPageController> {
             Container(
               width: 200,
               child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.teal[400],
-                ),
-                child: Text('Login'),
-                onPressed: () {},
-              ),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.teal[400],
+                  ),
+                  child: Text('Login'),
+                  onPressed: () async {
+                    await controller.signIn(
+                        controller.c_email.text, controller.c_pw.text);
+                    if (await FirebaseAuth.instance.currentUser?.uid != null) {
+                      Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => HomeView(),
+                              maintainState: true));
+                    } else {
+                      showDialog(
+                          context: context,
+                          builder: (context) => AlertDialog(
+                                title: Text('Error'),
+                                content: Text('Periksa Email&Password'),
+                                actions: <Widget>[
+                                  ElevatedButton(
+                                      onPressed: () {
+                                        Navigator.pop(context);
+                                      },
+                                      child: Text('Ok'))
+                                ],
+                              ));
+
+                      // shape: RoundedRectangleBorder(
+                      //   borderRadius: BorderRadius.circular(8),
+                      // ),
+                      // color: Color(0xFF4f4f4f),
+                      // elevation: 0,
+                      // padding: EdgeInsets.symmetric(vertical: 16),
+                    }
+                  }),
             ),
             SizedBox(
               height: 20,

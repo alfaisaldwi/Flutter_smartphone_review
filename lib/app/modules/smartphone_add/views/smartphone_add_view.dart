@@ -1,22 +1,19 @@
+import 'dart:io';
+
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:smartphone_review/app/modules/home/views/home_view.dart';
 import 'package:smartphone_review/app/modules/profile_page/views/profile_page_view.dart';
 
 import '../controllers/smartphone_add_controller.dart';
 
 class SmartphoneAddView extends GetView<SmartphoneAddController> {
-    var items = [    
-    'Item 1',
-    'Item 2',
-    'Item 3',
-    'Item 4',
-    'Item 5',
-  ];
+  String imageUrl = '';
   @override
   Widget build(BuildContext context) {
-    
     return Scaffold(
       appBar: AppBar(
         leading: GestureDetector(
@@ -123,6 +120,7 @@ class SmartphoneAddView extends GetView<SmartphoneAddController> {
             Padding(
               padding: EdgeInsets.only(left: 20, right: 20),
               child: TextFormField(
+                controller: controller.c_brand,
                 decoration: InputDecoration(
                   hintText: 'Brand',
                   focusColor: Colors.white,
@@ -139,6 +137,7 @@ class SmartphoneAddView extends GetView<SmartphoneAddController> {
             Padding(
               padding: EdgeInsets.only(left: 20, right: 20),
               child: TextFormField(
+                controller: controller.c_deskripsi,
                 maxLines: 8,
                 decoration: InputDecoration(
                   hintText: 'Deskripsi',
@@ -156,6 +155,7 @@ class SmartphoneAddView extends GetView<SmartphoneAddController> {
             Padding(
               padding: EdgeInsets.only(left: 20, right: 20),
               child: TextFormField(
+                controller: controller.c_spek,
                 maxLines: 8,
                 decoration: InputDecoration(
                   hintText: 'Specification',
@@ -173,6 +173,7 @@ class SmartphoneAddView extends GetView<SmartphoneAddController> {
             Padding(
               padding: EdgeInsets.only(left: 20, right: 20),
               child: TextFormField(
+                controller: controller.c_excess,
                 maxLines: 8,
                 decoration: InputDecoration(
                   hintText: 'Excess',
@@ -204,6 +205,42 @@ class SmartphoneAddView extends GetView<SmartphoneAddController> {
             SizedBox(
               height: 8,
             ),
+            Container(
+              width: 300,
+              child: ElevatedButton(
+                style:
+                    ElevatedButton.styleFrom(backgroundColor: Colors.cyan[400]),
+                child: Text(
+                  'Add Image',
+                  style: TextStyle(
+                      fontFamily: 'Montserrat', fontWeight: FontWeight.bold),
+                ),
+                onPressed: () async {
+                  ImagePicker imagePicker = ImagePicker();
+                  XFile? file =
+                      await imagePicker.pickImage(source: ImageSource.gallery);
+                  print('${file?.path}');
+
+                  if (file == null) return;
+
+                  String uniqueFileName =
+                      DateTime.now().microsecondsSinceEpoch.toString();
+                  Reference referenceRoot = FirebaseStorage.instance.ref();
+                  Reference referenceDirImage = referenceRoot.child('images');
+
+                  Reference referenceImagetoUpload =
+                      referenceDirImage.child(uniqueFileName);
+
+                  referenceImagetoUpload.putFile(File(file!.path));
+
+                  try {
+                    await referenceImagetoUpload.putFile(File(file.path));
+
+                    imageUrl = await referenceImagetoUpload.getDownloadURL();
+                  } catch (e) {}
+                },
+              ),
+            ),
             SizedBox(
               height: 20,
             ),
@@ -218,7 +255,9 @@ class SmartphoneAddView extends GetView<SmartphoneAddController> {
                       fontFamily: 'Montserrat', fontWeight: FontWeight.bold),
                 ),
                 onPressed: () async {
-                  Get.to(() => HomeView());
+                 
+
+                  controller.createOrUpdate();
                 },
               ),
             ),

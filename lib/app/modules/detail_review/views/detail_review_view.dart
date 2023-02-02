@@ -7,6 +7,8 @@ import 'package:smartphone_review/app/modules/smartphone_add/views/smartphone_ad
 import '../controllers/detail_review_controller.dart';
 
 class DetailReviewView extends GetView<DetailReviewController> {
+  final p = Get.arguments;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -102,7 +104,7 @@ class DetailReviewView extends GetView<DetailReviewController> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'VIVO V19',
+                '${p[0]}',
                 style: TextStyle(
                     fontFamily: 'Montserrat',
                     fontWeight: FontWeight.bold,
@@ -115,9 +117,7 @@ class DetailReviewView extends GetView<DetailReviewController> {
               Padding(
                 padding:
                     EdgeInsets.only(left: 40, right: 40, top: 20, bottom: 20),
-                child: Container(
-                    child: Image.network(
-                        'https://cdn-2.tstatic.net/surabaya/foto/bank/images/bocoran-terbaru-hp-vivo-v19-jadi-seri-v-pertama-di-indonesia-berikut-tampilan-dan-fitur-unggulannya.jpg')),
+                child: Container(child: Image.network('${p[3]}')),
               ),
               Text(
                 'DESCRIPTION',
@@ -126,40 +126,15 @@ class DetailReviewView extends GetView<DetailReviewController> {
               SizedBox(
                 height: 15,
               ),
+              Text('${p[1]}', textAlign: TextAlign.justify),
               Text(
-                  'Vivo, vendor smartphone asal Tiongkok yang juga merupakan saudara tiri dari Oppo, telah memperkenalkan dan merilis duo jagoan terbarunya, yakni Vivo V15 dan Vivo V15 Pro. Kedua HP ini sama-sama menjadikan sektor kamera dan layar lebar sebagai nilai jualnya.',
-                  textAlign: TextAlign.justify),
-              SizedBox(
-                height: 5,
+                'SPESIFICATION',
+                style: TextStyle(fontSize: 18, color: Colors.black45),
               ),
-              Text('Processor :    '),
               SizedBox(
-                height: 5,
+                height: 15,
               ),
-              Text('RAM :    GB'),
-              SizedBox(
-                height: 5,
-              ),
-              Text('Penyimpanan :    '),
-              SizedBox(
-                height: 5,
-              ),
-              Text('Baterai :    mAh'),
-              SizedBox(
-                height: 5,
-              ),
-              Text('Pengisian Cepat :    '),
-              SizedBox(
-                height: 5,
-              ),
-              Text('Warna :    '),
-              SizedBox(
-                height: 5,
-              ),
-              Text('Sistem Operasi :    '),
-              SizedBox(
-                height: 20,
-              ),
+              Text('${p[4]}', textAlign: TextAlign.justify),
               Text(
                 'EXCESS',
                 style: TextStyle(

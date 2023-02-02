@@ -67,6 +67,7 @@ class ProfilePageView extends GetView<ProfilePageController> {
                       ),
                     ),
                     ListTile(
+                      onTap: () => controller.createOrUpdate(),
                       title: Text(
                         'Add Smartphone',
                         style: TextStyle(
@@ -136,6 +137,7 @@ class ProfilePageView extends GetView<ProfilePageController> {
                       fontFamily: 'Montserrat', fontWeight: FontWeight.bold),
                 ),
                 onPressed: () async {
+                  controller.asignOutUser();
                   // Get.to(() => HomeView());
                 },
               ),
