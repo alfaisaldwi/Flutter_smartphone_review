@@ -48,18 +48,9 @@ class ProfilePageView extends GetView<ProfilePageController> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     ListTile(
-                      onTap: () => (Get.to(() => HomeView())),
+                      onTap: () => (Get.toNamed('home')),
                       title: Text(
                         'Home',
-                        style: TextStyle(
-                            fontFamily: 'Montserrat',
-                            fontWeight: FontWeight.bold,
-                            fontSize: 18),
-                      ),
-                    ),
-                    ListTile(
-                      title: Text(
-                        'BrandSmartphone',
                         style: TextStyle(
                             fontFamily: 'Montserrat',
                             fontWeight: FontWeight.bold,

@@ -18,6 +18,7 @@ class ProfilePageController extends GetxController {
 
   TextEditingController c_brand = TextEditingController();
   TextEditingController c_deskripsi = TextEditingController();
+  TextEditingController c_slogan = TextEditingController();
   TextEditingController c_spek = TextEditingController();
   TextEditingController c_excess = TextEditingController();
 
@@ -28,6 +29,7 @@ class ProfilePageController extends GetxController {
     if (documentSnapshot != null) {
       action = 'update';
       c_brand.text = documentSnapshot['brand'];
+      c_slogan.text = documentSnapshot['slogan'];
       c_deskripsi.text = documentSnapshot['deskripsi'];
       c_spek.text = documentSnapshot['spek'];
       c_excess.text = documentSnapshot['excess'];
@@ -57,6 +59,10 @@ class ProfilePageController extends GetxController {
                     decoration: const InputDecoration(labelText: 'Brand'),
                   ),
                   TextField(
+                    controller: c_slogan,
+                    decoration: const InputDecoration(labelText: 'Slogan'),
+                  ),
+                  TextField(
                     controller: c_deskripsi,
                     maxLines: 6,
                     decoration: const InputDecoration(
@@ -73,7 +79,6 @@ class ProfilePageController extends GetxController {
                   TextField(
                     controller: c_excess,
                     maxLines: 6,
-                    keyboardType: TextInputType.number,
                     decoration: const InputDecoration(
                       labelText: 'Excess',
                     ),
@@ -125,11 +130,13 @@ class ProfilePageController extends GetxController {
                     child: Text(action == 'create' ? 'Create' : 'Update'),
                     onPressed: () async {
                       final String? brand = c_brand.text;
+                      final String? slogan = c_slogan.text;
                       final String? deskripsi = c_deskripsi.text;
                       final String? spek = c_spek.text;
                       final String? excess = c_excess.text;
 
                       if (brand != null &&
+                          slogan != null &&
                           deskripsi != null &&
                           spek != null &&
                           excess != null &&
@@ -137,6 +144,7 @@ class ProfilePageController extends GetxController {
                         if (action == 'create') {
                           await dbMaps.add({
                             "brand": brand,
+                            "slogan": slogan,
                             "deskripsi": deskripsi,
                             "spek": spek,
                             "excess": excess,
@@ -148,6 +156,7 @@ class ProfilePageController extends GetxController {
                           // Update the product
                           await dbMaps.doc(documentSnapshot!.id).update({
                             "brand": brand,
+                            "slogan": slogan,
                             "deskripsi": deskripsi,
                             "spek": spek,
                             "excess": excess,
@@ -157,6 +166,7 @@ class ProfilePageController extends GetxController {
 
                         // Clear the text fields
                         c_brand.text = '';
+                        c_slogan.text = '';
                         c_deskripsi.text = '';
                         c_spek.text = '';
 

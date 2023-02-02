@@ -20,18 +20,6 @@ class DetailReviewView extends GetView<DetailReviewController> {
             color: Colors.black,
           ),
         ),
-        actions: [
-          Padding(
-            padding: const EdgeInsets.only(right: 12.0),
-            child: GestureDetector(
-              onTap: () => Get.to(() => ProfilePageView()),
-              child: Icon(
-                Icons.person_outline_outlined,
-                color: Colors.black,
-              ),
-            ),
-          )
-        ],
         backgroundColor: Colors.white,
         automaticallyImplyLeading: false,
         title: Image.asset(
@@ -41,100 +29,118 @@ class DetailReviewView extends GetView<DetailReviewController> {
         centerTitle: true,
       ),
       key: controller.scaffoldKey,
-      drawer: Drawer(
-        elevation: 10.0,
-        child: ListView(
-          children: <Widget>[
-            DrawerHeader(
-              decoration: BoxDecoration(color: Colors.white),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: <Widget>[
-                  Image.asset('assets/images/logo.png', width: 180),
-                ],
+      drawer: GestureDetector(
+        onTap: controller.openDrawer,
+        child: Drawer(
+          elevation: 10.0,
+          child: ListView(
+            children: <Widget>[
+              DrawerHeader(
+                decoration: BoxDecoration(color: Colors.white),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: <Widget>[
+                    Image.asset('assets/images/logo.png', width: 180),
+                  ],
+                ),
               ),
-            ),
-            Container(
-              padding: EdgeInsets.only(left: 20),
-              color: Colors.white,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  ListTile(
-                    onTap: () => Navigator.pop,
-                    title: Text(
-                      'Home',
-                      style: TextStyle(
-                          fontFamily: 'Montserrat',
-                          fontWeight: FontWeight.bold,
-                          fontSize: 18),
+              Container(
+                padding: EdgeInsets.only(left: 20),
+                color: Colors.white,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    ListTile(
+                      onTap: () => (Get.toNamed('home')),
+                      title: Text(
+                        'Home',
+                        style: TextStyle(
+                            fontFamily: 'Montserrat',
+                            fontWeight: FontWeight.bold,
+                            fontSize: 18),
+                      ),
                     ),
-                  ),
-                  ListTile(
-                    title: Text(
-                      'Brand Smartphone',
-                      style: TextStyle(
-                          fontFamily: 'Montserrat',
-                          fontWeight: FontWeight.bold,
-                          fontSize: 18),
+                    ListTile(
+                      onTap: () => controller.createOrUpdate(),
+                      title: Text(
+                        'Add Smartphone',
+                        style: TextStyle(
+                            fontFamily: 'Montserrat',
+                            fontWeight: FontWeight.bold,
+                            fontSize: 18),
+                      ),
                     ),
-                  ),
-                  ListTile(
-                    onTap: () => (Get.to(() => SmartphoneAddView())),
-                    title: Text(
-                      'Add Smartphone',
-                      style: TextStyle(
-                          fontFamily: 'Montserrat',
-                          fontWeight: FontWeight.bold,
-                          fontSize: 18),
-                    ),
-                  ),
-                ],
-              ),
-            )
-          ],
+                  ],
+                ),
+              )
+            ],
+          ),
         ),
       ),
       body: SingleChildScrollView(
         child: Container(
-          padding: EdgeInsets.only(top: 20, left: 20, right: 20),
+          padding: EdgeInsets.only(top: 40, left: 20, right: 20),
           color: Colors.white,
           width: double.infinity,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                '${p[0]}',
+                '${p[0]}'.toUpperCase(),
                 style: TextStyle(
                     fontFamily: 'Montserrat',
                     fontWeight: FontWeight.bold,
-                    fontSize: 18,
+                    fontSize: 22,
+                    color: Colors.black),
+              ),
+              SizedBox(
+                height: 5,
+              ),
+              Text(
+                '${p[1]}',
+                style: TextStyle(
+                    fontFamily: 'Montserrat',
+                    fontWeight: FontWeight.bold,
+                    fontSize: 16,
                     color: Colors.black45),
               ),
               SizedBox(
-                height: 20,
+                height: 25,
               ),
               Padding(
                 padding:
-                    EdgeInsets.only(left: 40, right: 40, top: 20, bottom: 20),
-                child: Container(child: Image.network('${p[3]}')),
+                    EdgeInsets.only(left: 40, right: 40, top: 0, bottom: 40),
+                child:
+                    Center(child: Container(child: Image.network('${p[4]}'))),
               ),
               Text(
                 'DESCRIPTION',
                 style: TextStyle(fontSize: 18, color: Colors.black45),
               ),
               SizedBox(
-                height: 15,
+                height: 10,
               ),
-              Text('${p[1]}', textAlign: TextAlign.justify),
+              Text(
+                '${p[2]}',
+                textAlign: TextAlign.justify,
+                style: TextStyle(height: 1.5, fontSize: 15),
+              ),
+              SizedBox(
+                height: 25,
+              ),
               Text(
                 'SPESIFICATION',
                 style: TextStyle(fontSize: 18, color: Colors.black45),
               ),
               SizedBox(
-                height: 15,
+                height: 10,
               ),
-              Text('${p[4]}', textAlign: TextAlign.justify),
+              Text('${p[5]}',
+                  textAlign: TextAlign.justify,
+                  style: TextStyle(height: 1.5, fontSize: 15)),
+              SizedBox(
+                height: 25,
+              ),
               Text(
                 'EXCESS',
                 style: TextStyle(
@@ -144,13 +150,13 @@ class DetailReviewView extends GetView<DetailReviewController> {
                     color: Colors.black45),
               ),
               SizedBox(
-                height: 15,
+                height: 10,
               ),
-              Text(
-                  'Kelebihan pertama yang dimiliki Vivo V15 Pro terletak pada layarnya yang berukuran besar dan memiliki kualtias bagus. Dengan ukuran 6,39 inci berjenis Super AMOLED, serta tidak terdapatnya penghalang seperti notch ataupun punch hole, maka akan membuat penggunanya lebih leluasa ketika menggunakannya. Kelebihan lain adalah pada fitur kamera depan dan belakangnya yang sama-sama berkualitas dan mampu menghasilkan foto atau video bagus. Kapasitas RAM dan ROM-nya pun memiliki kapasitas besar yang dapat membuat sistem bertambah lancar.',
-                  textAlign: TextAlign.justify),
+              Text('${p[3]}',
+                  textAlign: TextAlign.justify,
+                  style: TextStyle(height: 1.5, fontSize: 15)),
               SizedBox(
-                height: 50,
+                height: 200,
               ),
             ],
           ),

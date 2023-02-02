@@ -20,18 +20,6 @@ class HomeView extends GetView<HomeController> {
             color: Colors.black,
           ),
         ),
-        actions: [
-          Padding(
-            padding: const EdgeInsets.only(right: 12.0),
-            child: GestureDetector(
-              onTap: () => Get.to(() => ProfilePageView()),
-              child: Icon(
-                Icons.person_outline_outlined,
-                color: Colors.black,
-              ),
-            ),
-          )
-        ],
         backgroundColor: Colors.white,
         automaticallyImplyLeading: false,
         title: Image.asset(
@@ -41,58 +29,52 @@ class HomeView extends GetView<HomeController> {
         centerTitle: true,
       ),
       key: controller.scaffoldKey,
-      drawer: Drawer(
-        elevation: 10.0,
-        child: ListView(
-          children: <Widget>[
-            DrawerHeader(
-              decoration: BoxDecoration(color: Colors.white),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: <Widget>[
-                  Image.asset('assets/images/logo.png', width: 180),
-                ],
+      drawer: GestureDetector(
+        onTap: controller.openDrawer,
+        child: Drawer(
+          elevation: 10.0,
+          child: ListView(
+            children: <Widget>[
+              DrawerHeader(
+                decoration: BoxDecoration(color: Colors.white),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: <Widget>[
+                    Image.asset('assets/images/logo.png', width: 180),
+                  ],
+                ),
               ),
-            ),
-            Container(
-              padding: EdgeInsets.only(left: 20),
-              color: Colors.white,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  ListTile(
-                    onTap: () => Navigator.pop,
-                    title: Text(
-                      'Home',
-                      style: TextStyle(
-                          fontFamily: 'Montserrat',
-                          fontWeight: FontWeight.bold,
-                          fontSize: 18),
+              Container(
+                padding: EdgeInsets.only(left: 20),
+                color: Colors.white,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    ListTile(
+                      onTap: () => (Get.toNamed('home')),
+                      title: Text(
+                        'Home',
+                        style: TextStyle(
+                            fontFamily: 'Montserrat',
+                            fontWeight: FontWeight.bold,
+                            fontSize: 18),
+                      ),
                     ),
-                  ),
-                  ListTile(
-                    title: Text(
-                      'Brand Smartphone',
-                      style: TextStyle(
-                          fontFamily: 'Montserrat',
-                          fontWeight: FontWeight.bold,
-                          fontSize: 18),
+                    ListTile(
+                      onTap: () => controller.createOrUpdate(),
+                      title: Text(
+                        'Add Smartphone',
+                        style: TextStyle(
+                            fontFamily: 'Montserrat',
+                            fontWeight: FontWeight.bold,
+                            fontSize: 18),
+                      ),
                     ),
-                  ),
-                  ListTile(
-                    onTap: () => (Get.to(() => SmartphoneAddView())),
-                    title: Text(
-                      'Add Smartphone',
-                      style: TextStyle(
-                          fontFamily: 'Montserrat',
-                          fontWeight: FontWeight.bold,
-                          fontSize: 18),
-                    ),
-                  ),
-                ],
-              ),
-            )
-          ],
+                  ],
+                ),
+              )
+            ],
+          ),
         ),
       ),
       body: SingleChildScrollView(
@@ -141,19 +123,23 @@ class HomeView extends GetView<HomeController> {
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
-                                      Image.network(document['imageUrl'],
-                                          fit: BoxFit.cover, cacheHeight: 150),
+                                      Center(
+                                        child: Image.network(
+                                            document['imageUrl'],
+                                            fit: BoxFit.cover,
+                                            cacheHeight: 150),
+                                      ),
                                       SizedBox(
                                         height: 5,
                                       ),
                                       Text(
-                                        '${document['brand']}',
+                                        '${document['brand']}'.toUpperCase(),
                                         style: TextStyle(fontSize: 20),
                                       ),
                                       SizedBox(
                                         height: 5,
                                       ),
-                                      Text('${document['deskripsi']}'),
+                                      Text('${document['slogan']}'),
                                       SizedBox(
                                         height: 5,
                                       ),
@@ -178,6 +164,7 @@ class HomeView extends GetView<HomeController> {
                                                 Get.toNamed('detail-review',
                                                     arguments: [
                                                       '${document['brand']}',
+                                                      '${document['slogan']}',
                                                       '${document['deskripsi']}',
                                                       '${document['excess']}',
                                                       '${document['imageUrl']}',
@@ -188,20 +175,68 @@ class HomeView extends GetView<HomeController> {
                                           ),
                                           Row(
                                             children: [
-                                              Container(
-                                                child: Icon(
-                                                  Icons.edit_outlined,
-                                                  color: Colors.teal,
+                                              GestureDetector(
+                                                onTap: () => controller
+                                                    .createOrUpdate(document),
+                                                child: Container(
+                                                  child: Icon(
+                                                    Icons.edit_outlined,
+                                                    color: Colors.teal,
+                                                  ),
                                                 ),
                                               ),
                                               SizedBox(
                                                 width: 5,
                                               ),
-                                              Container(
-                                                child: Icon(
-                                                  Icons.delete_outline,
-                                                  color: Colors.teal,
+                                              GestureDetector(
+                                                child: Container(
+                                                  child: Icon(
+                                                    Icons.delete_outline,
+                                                    color: Colors.teal,
+                                                  ),
                                                 ),
+                                                onTap: () => showDialog(
+                                                    context: context,
+                                                    builder:
+                                                        (BuildContext context) {
+                                                      return AlertDialog(
+                                                        title:
+                                                            Text('Perhatian !'),
+                                                        content: Text(
+                                                            "Anda Yakin Menghapus Data Ini ?"),
+                                                        actions: <Widget>[
+                                                          ElevatedButton(
+                                                            style: ElevatedButton
+                                                                .styleFrom(
+                                                                    backgroundColor:
+                                                                        Colors
+                                                                            .redAccent),
+                                                            child: Text("Ya"),
+                                                            onPressed:
+                                                                () async {
+                                                              //Put your code here which you want to execute on Yes button click.
+                                                              await controller
+                                                                  .deleteProduct(
+                                                                      document
+                                                                          .id);
+                                                              Navigator.of(
+                                                                      context)
+                                                                  .pop();
+                                                            },
+                                                          ),
+                                                          ElevatedButton(
+                                                            child:
+                                                                Text("Tidak"),
+                                                            onPressed: () {
+                                                              //Put your code here which you want to execute on No button click.
+                                                              Navigator.of(
+                                                                      context)
+                                                                  .pop();
+                                                            },
+                                                          ),
+                                                        ],
+                                                      );
+                                                    }),
                                               ),
                                             ],
                                           ),
