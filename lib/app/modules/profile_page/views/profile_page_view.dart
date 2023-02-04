@@ -98,7 +98,7 @@ class ProfilePageView extends GetView<ProfilePageController> {
             SizedBox(
               height: 10,
             ),
-            Text('${pUser.user!.displayName}'),
+            Text('${pUser.user?.displayName ?? 'User is Loggin'}'),
             SizedBox(
               height: 20,
             ),
@@ -106,14 +106,14 @@ class ProfilePageView extends GetView<ProfilePageController> {
               padding: const EdgeInsets.all(20.0),
               child: ListTile(
                 leading: Text('Email'),
-                trailing: Text('${pUser.user!.email}'),
+                trailing: Text('${pUser.user?.email ?? 'User is Loggin'}'),
               ),
             ),
             Padding(
               padding: const EdgeInsets.all(20.0),
               child: ListTile(
                 leading: Text('Name'),
-                trailing: Text('${pUser.user!.displayName}'),
+                trailing: Text('${pUser.user?.displayName ?? 'User is Loggin'}'),
               ),
             ),
             SizedBox(
@@ -131,7 +131,6 @@ class ProfilePageView extends GetView<ProfilePageController> {
                 ),
                 onPressed: () async {
                   controller.asignOutUser();
-                  // Get.to(() => HomeView());
                 },
               ),
             )

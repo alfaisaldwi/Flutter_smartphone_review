@@ -120,14 +120,15 @@ class LoginPageView extends GetView<LoginPageController> {
               height: 20,
             ),
             Container(
-              width: 300,
+              width: 200,
               child: ElevatedButton(
-                style:
-                    ElevatedButton.styleFrom(backgroundColor: Colors.teal[400]),
+                style: ElevatedButton.styleFrom(backgroundColor: Colors.white),
                 child: Text(
                   'Login with Google',
                   style: TextStyle(
-                      fontFamily: 'Montserrat', fontWeight: FontWeight.bold),
+                      fontFamily: 'Montserrat',
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black),
                 ),
                 onPressed: () async {
                   controller.loginGoogle(context: Get.context!);

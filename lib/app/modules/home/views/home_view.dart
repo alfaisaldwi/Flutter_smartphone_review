@@ -126,139 +126,151 @@ class HomeView extends GetView<HomeController> {
                             final DocumentSnapshot document =
                                 snapshot.data!.docs[index];
 
-                            return Card(
-                              elevation: 3,
-                              child: Container(
-                                padding: EdgeInsets.only(left: 15, right: 15),
-                                width: double.infinity,
-                                child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Center(
-                                        child: Image.network(
-                                            document['imageUrl'],
-                                            fit: BoxFit.cover,
-                                            cacheHeight: 150),
-                                      ),
-                                      SizedBox(
-                                        height: 5,
-                                      ),
-                                      Text(
-                                        '${document['brand']}'.toUpperCase(),
-                                        style: TextStyle(fontSize: 20),
-                                      ),
-                                      SizedBox(
-                                        height: 5,
-                                      ),
-                                      Text('${document['slogan']}'),
-                                      SizedBox(
-                                        height: 5,
-                                      ),
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
+                            return Column(
+                              children: [
+                                Card(
+                                  elevation: 3,
+                                  child: Container(
+                                    padding:
+                                        EdgeInsets.only(left: 15, right: 15),
+                                    width: double.infinity,
+                                    child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
                                         children: [
-                                          Container(
-                                            width: 100,
-                                            child: ElevatedButton(
-                                              style: ElevatedButton.styleFrom(
-                                                  backgroundColor:
-                                                      Colors.teal[400]),
-                                              child: Text(
-                                                'Review',
-                                                style: TextStyle(
-                                                    fontFamily: 'Montserrat',
-                                                    fontWeight:
-                                                        FontWeight.bold),
-                                              ),
-                                              onPressed: () async {
-                                                Get.toNamed('detail-review',
-                                                    arguments: [
-                                                      '${document['brand']}',
-                                                      '${document['slogan']}',
-                                                      '${document['deskripsi']}',
-                                                      '${document['excess']}',
-                                                      '${document['imageUrl']}',
-                                                      '${document['spek']}'
-                                                    ]);
-                                              },
-                                            ),
+                                          Center(
+                                            child: Image.network(
+                                                document['imageUrl'],
+                                                fit: BoxFit.cover,
+                                                cacheHeight: 150),
+                                          ),
+                                          SizedBox(
+                                            height: 5,
+                                          ),
+                                          Text(
+                                            '${document['brand']}'
+                                                .toUpperCase(),
+                                            style: TextStyle(fontSize: 20),
+                                          ),
+                                          SizedBox(
+                                            height: 5,
+                                          ),
+                                          Text('${document['slogan']}'),
+                                          SizedBox(
+                                            height: 5,
                                           ),
                                           Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
                                             children: [
-                                              GestureDetector(
-                                                onTap: () => controller
-                                                    .createOrUpdate(document),
-                                                child: Container(
-                                                  child: Icon(
-                                                    Icons.edit_outlined,
-                                                    color: Colors.teal,
+                                              Container(
+                                                width: 100,
+                                                child: ElevatedButton(
+                                                  style:
+                                                      ElevatedButton.styleFrom(
+                                                          backgroundColor:
+                                                              Colors.teal[400]),
+                                                  child: Text(
+                                                    'Review',
+                                                    style: TextStyle(
+                                                        fontFamily:
+                                                            'Montserrat',
+                                                        fontWeight:
+                                                            FontWeight.bold),
                                                   ),
+                                                  onPressed: () async {
+                                                    Get.toNamed('detail-review',
+                                                        arguments: [
+                                                          '${document['brand']}',
+                                                          '${document['slogan']}',
+                                                          '${document['deskripsi']}',
+                                                          '${document['excess']}',
+                                                          '${document['imageUrl']}',
+                                                          '${document['spek']}'
+                                                        ]);
+                                                  },
                                                 ),
                                               ),
-                                              SizedBox(
-                                                width: 5,
-                                              ),
-                                              GestureDetector(
-                                                child: Container(
-                                                  child: Icon(
-                                                    Icons.delete_outline,
-                                                    color: Colors.teal,
+                                              Row(
+                                                children: [
+                                                  GestureDetector(
+                                                    onTap: () => controller
+                                                        .createOrUpdate(
+                                                            document),
+                                                    child: Container(
+                                                      child: Icon(
+                                                        Icons.edit_outlined,
+                                                        color: Colors.teal,
+                                                      ),
+                                                    ),
                                                   ),
-                                                ),
-                                                onTap: () => showDialog(
-                                                    context: context,
-                                                    builder:
-                                                        (BuildContext context) {
-                                                      return AlertDialog(
-                                                        title:
-                                                            Text('Perhatian !'),
-                                                        content: Text(
-                                                            "Anda Yakin Menghapus Data Ini ?"),
-                                                        actions: <Widget>[
-                                                          ElevatedButton(
-                                                            style: ElevatedButton
-                                                                .styleFrom(
-                                                                    backgroundColor:
-                                                                        Colors
-                                                                            .redAccent),
-                                                            child: Text("Ya"),
-                                                            onPressed:
-                                                                () async {
-                                                              //Put your code here which you want to execute on Yes button click.
-                                                              await controller
-                                                                  .deleteProduct(
-                                                                      document
-                                                                          .id);
-                                                              Navigator.of(
-                                                                      context)
-                                                                  .pop();
-                                                            },
-                                                          ),
-                                                          ElevatedButton(
-                                                            child:
-                                                                Text("Tidak"),
-                                                            onPressed: () {
-                                                              //Put your code here which you want to execute on No button click.
-                                                              Navigator.of(
-                                                                      context)
-                                                                  .pop();
-                                                            },
-                                                          ),
-                                                        ],
-                                                      );
-                                                    }),
+                                                  SizedBox(
+                                                    width: 5,
+                                                  ),
+                                                  GestureDetector(
+                                                    child: Container(
+                                                      child: Icon(
+                                                        Icons.delete_outline,
+                                                        color: Colors.teal,
+                                                      ),
+                                                    ),
+                                                    onTap: () => showDialog(
+                                                        context: context,
+                                                        builder: (BuildContext
+                                                            context) {
+                                                          return AlertDialog(
+                                                            title: Text(
+                                                                'Perhatian !'),
+                                                            content: Text(
+                                                                "Anda Yakin Menghapus Data Ini ?"),
+                                                            actions: <Widget>[
+                                                              ElevatedButton(
+                                                                style: ElevatedButton
+                                                                    .styleFrom(
+                                                                        backgroundColor:
+                                                                            Colors.redAccent),
+                                                                child:
+                                                                    Text("Ya"),
+                                                                onPressed:
+                                                                    () async {
+                                                                  //Put your code here which you want to execute on Yes button click.
+                                                                  await controller
+                                                                      .deleteProduct(
+                                                                          document
+                                                                              .id);
+                                                                  Navigator.of(
+                                                                          context)
+                                                                      .pop();
+                                                                },
+                                                              ),
+                                                              ElevatedButton(
+                                                                child: Text(
+                                                                    "Tidak"),
+                                                                onPressed: () {
+                                                                  //Put your code here which you want to execute on No button click.
+                                                                  Navigator.of(
+                                                                          context)
+                                                                      .pop();
+                                                                },
+                                                              ),
+                                                            ],
+                                                          );
+                                                        }),
+                                                  ),
+                                                ],
                                               ),
                                             ],
                                           ),
-                                        ],
-                                      ),
-                                      SizedBox(
-                                        height: 10,
-                                      ),
-                                    ]),
-                              ),
+                                          SizedBox(
+                                            height: 10,
+                                          ),
+                                        ]),
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: 20,
+                                )
+                              ],
                             );
                           });
                     }),

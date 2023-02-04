@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:smartphone_review/app/modules/login_page/views/login_page_view.dart';
+import 'package:smartphone_review/app/routes/app_pages.dart';
 
 class ProfilePageController extends GetxController {
   var scaffoldKey = GlobalKey<ScaffoldState>();
@@ -203,7 +204,7 @@ class ProfilePageController extends GetxController {
 
   void asignOutUser() async {
     await auth.signOut();
-    Get.offAllNamed('/login-page');
+    Get.offAllNamed(Routes.LOGIN_PAGE);
   }
 
   void openDrawer() {

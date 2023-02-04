@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.smartphonereview.smartphone_review">
    <application
-        android:label="smartphone_review"
+        android:label="Smartphone Review"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

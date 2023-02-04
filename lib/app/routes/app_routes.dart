@@ -10,6 +10,7 @@ abstract class Routes {
   static const SMARTPHONE_ADD = _Paths.SMARTPHONE_ADD;
   static const DETAIL_REVIEW = _Paths.DETAIL_REVIEW;
   static const SPLASH_SCREEN = _Paths.SPLASH_SCREEN;
+  static const SPLASHSCREEN = _Paths.SPLASHSCREEN;
 }
 
 abstract class _Paths {
@@ -19,4 +20,5 @@ abstract class _Paths {
   static const SMARTPHONE_ADD = '/smartphone-add';
   static const DETAIL_REVIEW = '/detail-review';
   static const SPLASH_SCREEN = '/splash-screen';
+  static const SPLASHSCREEN = '/splashscreen';
 }
